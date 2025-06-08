@@ -1,9 +1,9 @@
-import React, { useMemo } from 'react';
 import type { FC } from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { useTheme } from '../../contexts/ThemeContext';
 import styles from './BarChart.module.css';
 import type { Crime } from '../../types';
+import { useMemo } from 'react';
 
 interface BarChartProps {
   crimes: Crime[];

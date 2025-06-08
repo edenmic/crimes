@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import { PieChart, Pie, Cell, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { useTheme } from '../../contexts/ThemeContext';
 import styles from './PieChart.module.css';
@@ -77,7 +77,7 @@ export const PieChartComponent: FC<PieChartProps> = ({ crimes, title, dataKey, l
               label={({ percent }) => `${(percent * 100).toFixed(0)}%`}
               labelLine={false}
             >
-              {data.map((entry, index) => (
+              {data.map((_, index) => (
                 <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
               ))}
             </Pie>

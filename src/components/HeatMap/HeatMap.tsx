@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import { useTheme } from '../../contexts/ThemeContext';
 import type { Crime } from '../../types';
 import styles from './HeatMap.module.css';

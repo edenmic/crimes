@@ -1,4 +1,3 @@
-import React from 'react';
 import type { FC } from 'react';
 import { Link } from 'react-router-dom';
 import { useTheme } from '../contexts/ThemeContext';
@@ -6,7 +5,7 @@ import notFoundImage from '../assets/404.jpg';
 import styles from './NotFound.module.css';
 
 export const NotFound: FC = () => {
-  const { darkMode } = useTheme();
+  const { } = useTheme();
   
   return (
     <div className={styles.notFoundPage}>

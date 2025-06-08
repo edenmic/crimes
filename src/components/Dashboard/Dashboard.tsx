@@ -1,4 +1,3 @@
-import React, { useState, useMemo } from 'react';
 import { useCrimeData } from '../../hooks/useCrimeData';
 import { Filters } from '../Filters/Filters';
 import { SummaryWindow } from '../SummaryWindow/SummaryWindow';
@@ -16,6 +15,7 @@ import { DataTableComponent } from '../DataTable/DataTable';
 import type { Crime } from '../../types';
 import type { FC } from 'react';
 import { HeatMap } from '../HeatMap/HeatMap';
+import { useMemo, useState } from 'react';
 
 export const Dashboard: FC = () => {
   const { crimes, loading: crimesLoading, error, refetch } = useCrimeData();
@@ -37,21 +37,6 @@ export const Dashboard: FC = () => {
     if (refetch) {
       refetch();
     }
-  };
-
-  // Add to Dashboard component
-  const saveCurrentView = () => {
-    const viewState = {
-      filters,
-      activeSections: {
-        summary: true,
-        pieCharts: true,
-        barCharts: true,
-        map: true,
-        lineChart: true
-      }
-    };
-    localStorage.setItem('dashboardViewState', JSON.stringify(viewState));
   };
 
   // Add the state variables at the top of your Dashboard component

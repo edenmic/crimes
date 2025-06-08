@@ -1,12 +1,10 @@
-import React, { useMemo } from 'react';
 import type { FC } from 'react';
 import { MapContainer, TileLayer, CircleMarker, Popup } from 'react-leaflet';
 import { useTheme } from '../../contexts/ThemeContext';
 import type { Crime } from '../../types';
 import styles from './CrimeMap.module.css';
 import 'leaflet/dist/leaflet.css';
-
-// Fix for marker icons
+import { useMemo } from 'react';    
 import L from 'leaflet';
 import icon from 'leaflet/dist/images/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';

@@ -1,4 +1,3 @@
-import React from 'react';
 import type { FC } from 'react';
 import type { SummaryStats } from '../../types';
 import styles from './SummaryWindow.module.css';

@@ -1,4 +1,3 @@
-import React from 'react';
 import type { FC } from 'react';
 import type { Filters as FiltersType, FilterOptions } from '../../types';
 import styles from './Filters.module.css';
