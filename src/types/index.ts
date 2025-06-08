@@ -10,6 +10,10 @@ export type OffenseCodeGroup =
   | 'Recovered Stolen Property'
   | 'Motor Vehicle Accident Response'
   | 'Violations'
+  | 'Larceny'           // Added based on common Boston crime data
+  | 'Drug Violation'    // Added based on common Boston crime data
+  | 'Robbery'           // Added based on common Boston crime data
+  | 'Trespassing'       // Added based on common Boston crime data
   | 'Other';
 
 export type District = 

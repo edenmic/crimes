@@ -56,3 +56,29 @@
   color: #777;
   font-size: 0.9rem;
 }
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 1rem;
+}
+
+.exportButton {
+  background-color: #2ecc71;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 0.6rem 1.2rem;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.exportButton:hover {
+  background-color: #27ae60;
+}
+
+.exportButton:disabled {
+  background-color: #95a5a6;
+  cursor: not-allowed;
+}

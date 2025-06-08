@@ -35,7 +35,7 @@ export const SummaryWindow: FC<SummaryWindowProps> = ({ stats }) => {
         
         <div className={styles.statCard}>
           <h4>Most Common Location</h4>
-          <div className={styles.statValue}>{stats.mostCommonStreet || 'N/A'}</div>
+          <div className={styles.statValue}>{stats.mostCommonStreet}</div>
         </div>
       </div>
     </div>

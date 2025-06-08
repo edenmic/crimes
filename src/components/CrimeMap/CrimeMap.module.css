@@ -1,0 +1,20 @@
+.mapContainer {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.mapContainer h3 {
+  text-align: center;
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+.map {
+  height: 500px;
+  width: 100%;
+  border-radius: 4px;
+  z-index: 0;
+}

@@ -9,6 +9,10 @@ import { filterCrimes } from '../../utils/filterCrimes';
 import { calculateStats } from '../../utils/calculateStats';
 import styles from './Dashboard.module.css';
 import { useFilters } from '../../hooks/useFilters';
+import { CrimeMap } from '../CrimeMap/CrimeMap';
+// Import the skeleton components
+import { Skeleton, ChartSkeleton } from '../Skeleton/Skeleton';
+import { exportToCsv } from '../../utils/exportData';
 
 export const Dashboard: FC = () => {
   const { crimes, loading: crimesLoading, error } = useCrimeData();
@@ -37,9 +41,41 @@ export const Dashboard: FC = () => {
       </header>
 
       {loading ? (
-        <div className={styles.loading}>Loading crime data...</div>
+        <div className={styles.loadingContainer}>
+          <h2 className={styles.loadingHeader}>Loading Crime Data...</h2>
+          
+          <div className={styles.skeletonFilters}>
+            <Skeleton height="60px" />
+          </div>
+          
+          <div className={styles.skeletonSummary}>
+            <Skeleton height="120px" />
+          </div>
+          
+          <div className={styles.chartsContainer}>
+            <div className={styles.chartColumn}>
+              <ChartSkeleton />
+            </div>
+            <div className={styles.chartColumn}>
+              <ChartSkeleton />
+            </div>
+          </div>
+          
+          <ChartSkeleton height="400px" />
+          <ChartSkeleton height="400px" />
+        </div>
       ) : (
         <>
+          <div className={styles.actions}>
+            <button 
+              className={styles.exportButton}
+              onClick={() => exportToCsv(filteredCrimes, 'boston-crimes-filtered')}
+              disabled={filteredCrimes.length === 0}
+            >
+              Export Filtered Data to CSV
+            </button>
+          </div>
+          
           <Filters 
             filters={filters} 
             filterOptions={filterOptions} 
@@ -69,9 +105,9 @@ export const Dashboard: FC = () => {
           <div className={styles.fullWidthChart}>
             <BarChartComponent 
               crimes={filteredCrimes} 
-              title="Top 10 Offense Types" 
+              title="Top 15 Offense Types" 
               dataKey="offenseCode" 
-              limit={10}
+              limit={15}
             />
           </div>
           
@@ -83,10 +119,12 @@ export const Dashboard: FC = () => {
             />
           </div>
           
-          <footer className={styles.footer}>
-            <p>Boston Crime Data Dashboard - 2017</p>
-            <p>Data source: Boston Police Department</p>
-          </footer>
+          <div className={styles.fullWidthChart}>
+            <CrimeMap 
+              crimes={filteredCrimes} 
+              title="Crime Locations in Boston" 
+            />
+          </div>
         </>
       )}
     </div>
