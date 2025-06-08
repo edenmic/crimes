@@ -21,7 +21,7 @@ files:
       ##footer (information about the web, all rights reserved etc..)
   -assets
   -utils/
-    csvParser.ts
+    csvParse.ts
     calculateStats.ts
   -data/
     boston_crime_2017.csv

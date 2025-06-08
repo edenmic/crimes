@@ -1,6 +1,6 @@
-import { Crime, SummaryWindow, OffenseCodeGroup } from '../types/Crime';    
+import type { Crime, SummaryStats, OffenseCodeGroup, District, DayOfWeek } from '../types';
 
-export const calculateStats = (crimes: Crime[]): SummaryWindow => {
+export const calculateStats = (crimes: Crime[]): SummaryStats => {
     if (!crimes.length) {
         return {
             totalThreats: 0,
@@ -11,44 +11,54 @@ export const calculateStats = (crimes: Crime[]): SummaryWindow => {
         };
     }
 
-    //total number of crimes
+    // Total number of crimes
     const totalThreats = crimes.length;
 
-    //most common offense
-    const offenseCount = crimes.reduce((acc, crime) => {
-        acc[crime.offenseCode] = (acc[crime.offenseCode] || 0) + 1;
+    // Most common offense
+    const offenseCount = crimes.reduce<Record<string, number>>((acc, crime) => {
+        const key = crime.offenseCode;
+        acc[key] = (acc[key] || 0) + 1;
         return acc;
-    }, {} as Record<OffenseCodeGroup, number>);
+    }, {});
+    
+    const mostCommonOffenseEntry = Object.entries(offenseCount).sort((a, b) => b[1] - a[1])[0];
+    const mostCommonOffense = mostCommonOffenseEntry ? mostCommonOffenseEntry[0] as OffenseCodeGroup : null;
 
-    const mostCommonOffenseCode = Object.entries(offenseCount).sort((a, b) => b[1] - a[1])[0][0] as OffenseCodeGroup;
-
-    //most common district
-    const districtCount = crimes.reduce((acc, crime) => {
-        acc[crime.district] = (acc[crime.district] || 0) + 1;
+    // Most common district
+    const districtCount = crimes.reduce<Record<string, number>>((acc, crime) => {
+        const key = crime.district;
+        acc[key] = (acc[key] || 0) + 1;
         return acc;
-    }, {} as Record<string, number>);   
-    const mostCommonDistrict = Object.entries(districtCount).sort((a, b) => b[1] - a[1])[0][0];
+    }, {});
+    
+    const mostCommonDistrictEntry = Object.entries(districtCount).sort((a, b) => b[1] - a[1])[0];
+    const mostCommonDistrict = mostCommonDistrictEntry ? mostCommonDistrictEntry[0] as District : null;
 
-    //most common day of week
-    const dayOfWeekCount = crimes.reduce((acc, crime) => {
-        acc[crime.dayOfWeek] = (acc[crime.dayOfWeek] || 0) + 1;
+    // Most common day of week
+    const dayOfWeekCount = crimes.reduce<Record<string, number>>((acc, crime) => {
+        const key = crime.dayOfWeek;
+        acc[key] = (acc[key] || 0) + 1;
         return acc;
-    }, {} as Record<string, number>);   
-    const mostCommonDayOfWeek = Object.entries(dayOfWeekCount).sort((a, b) => b[1] - a[1])[0][0];
+    }, {});
+    
+    const mostCommonDayOfWeekEntry = Object.entries(dayOfWeekCount).sort((a, b) => b[1] - a[1])[0];
+    const mostCommonDayOfWeek = mostCommonDayOfWeekEntry ? mostCommonDayOfWeekEntry[0] as DayOfWeek : null;
 
-    //most common street
-    const streetCount = crimes.reduce((acc, crime) => {
-        acc[crime.street] = (acc[crime.street] || 0) + 1;
+    // Most common street
+    const streetCount = crimes.reduce<Record<string, number>>((acc, crime) => {
+        const key = crime.street;
+        acc[key] = (acc[key] || 0) + 1;
         return acc;
-    }, {} as Record<string, number>);
-    const mostCommonStreet = Object.entries(streetCount).sort((a, b) => b[1] - a[1])[0][0];
+    }, {});
+    
+    const mostCommonStreetEntry = Object.entries(streetCount).sort((a, b) => b[1] - a[1])[0];
+    const mostCommonStreet = mostCommonStreetEntry ? mostCommonStreetEntry[0] : '';
 
     return {
         totalThreats,
-        mostCommonOffense: mostCommonOffenseCode,
+        mostCommonOffense,
         mostCommonDistrict,
         mostCommonDayOfWeek,
         mostCommonStreet
-    };  
     };
-    
+};

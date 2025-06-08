@@ -1,31 +1,60 @@
-import { recharts } from 'recharts';
-import { FC } from 'react';
-import { Bar, BarChart, XAxis, YAxis, Tooltip, CartesianGrid } from 'recharts';
-import { useCrimeData } from '../../hooks/useCrimeData';
-import { useFilters } from '../../hooks/useFilters';
-import { filterCrimes } from '../../utils/filterCrimes';
-import { calculateStats } from '../../utils/calculateStats';
+import { useMemo } from 'react';
+import type { FC } from 'react';
+import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend } from 'recharts';
+import type { Crime } from '../../types';
+import styles from './PieChart.module.css';
 
-export const PieChartComponent: FC = () => {
-    const { crimes, loading: crimesLoading } = useCrimeData();
-    const { filters, filterOptions, loading: filtersLoading, updateFilter } = useFilters();
+interface PieChartProps {
+  crimes: Crime[];
+  title: string;
+  dataKey: 'offenseCode' | 'district' | 'dayOfWeek';
+}
 
-    // Apply filters to the crimes
-    const filteredCrimes = filterCrimes(crimes, filters);
+export const PieChartComponent: FC<PieChartProps> = ({ crimes, title, dataKey }) => {
+  const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#8884d8', '#82ca9d', '#ffc658', '#8dd1e1', '#a4de6c', '#d0ed57'];
+  
+  const data = useMemo(() => {
+    if (!crimes.length) return [];
+    
+    const counts: Record<string, number> = {};
+    
+    // Count occurrences of each value
+    crimes.forEach(crime => {
+      const value = crime[dataKey];
+      counts[value] = (counts[value] || 0) + 1;
+    });
+    
+    // Convert to array format for recharts
+    return Object.entries(counts).map(([name, value]) => ({ name, value }));
+  }, [crimes, dataKey]);
 
-    // Calculate stats from filtered crimes
-    const stats = calculateStats(filteredCrimes);
+  if (!crimes.length) {
+    return <div className={styles.noData}>No data to display</div>;
+  }
 
-    const loading = crimesLoading || filtersLoading;
-
-    if (loading) {
-        return <div>Loading...</div>;
-    }
-
-    return (
-        <PieChart width={600} height={300}>
-            <Pie data={filteredCrimes} dataKey="incidentNumber" nameKey="offenseDescription" cx="50%" cy="50%" outerRadius={100} fill="#8884d8" />
-            <Tooltip />
+  return (
+    <div className={styles.pieChartContainer}>
+      <h3>{title}</h3>
+      <ResponsiveContainer width="100%" height={300}>
+        <PieChart>
+          <Pie
+            data={data}
+            cx="50%"
+            cy="50%"
+            labelLine={false}
+            label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
+            outerRadius={90}
+            fill="#8884d8"
+            dataKey="value"
+          >
+            {data.map((entry, index) => (
+              <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+            ))}
+          </Pie>
+          <Tooltip formatter={(value: number) => [`${value} incidents`, 'Count']} />
+          <Legend />
         </PieChart>
-    );
-}   
+      </ResponsiveContainer>
+    </div>
+  );
+};
