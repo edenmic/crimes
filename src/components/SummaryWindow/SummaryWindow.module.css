@@ -1,7 +1,8 @@
 .summaryContainer {
-  background-color: #fff;
+  background-color: var(--bg-primary);
+  border: 1px solid var(--border-color);
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow);
   padding: 1.5rem;
   margin-bottom: 2rem;
 }
@@ -9,31 +10,108 @@
 .summaryContainer h3 {
   text-align: center;
   margin-bottom: 1.5rem;
-  color: #333;
+  color: var(--text-primary);
+  font-size: 1.5rem;
+  font-weight: 600;
 }
 
 .statsGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Increased min width */
+  gap: 1.0rem; /* Increased gap for better spacing */ 
   margin-top: 1rem;
 }
 
 .statCard {
-  background-color: #f8f9fa;
-  border-radius: 6px;
-  padding: 1rem;
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 1.25rem;
   text-align: center;
+  transition: all 0.2s ease;
+  min-height: 120px; /* Set minimum height */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.statCard:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow);
 }
 
 .statCard h4 {
-  margin: 0 0 0.5rem;
-  color: #495057;
-  font-size: 0.9rem;
+  margin: 0 0 0.75rem 0;
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1.3;
+  word-wrap: break-word; /* Break long words */
+  overflow-wrap: break-word; /* Fallback for older browsers */
 }
 
 .statValue {
-  font-size: 1.5rem;
+  font-size: 1.25rem; /* Reduced from 1.5rem */
   font-weight: 700;
-  color: #212529;
+  color: var(--accent-color);
+  line-height: 1.2;
+  word-wrap: break-word; /* Break long words */
+  overflow-wrap: break-word; /* Fallback for older browsers */
+  hyphens: auto; /* Add hyphens for long words */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .statsGrid {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+  }
+  
+  .statCard {
+    padding: 1rem;
+    min-height: 100px;
+  }
+  
+  .statCard h4 {
+    font-size: 0.8rem;
+  }
+  
+  .statValue {
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .statsGrid {
+    grid-template-columns: 1fr 1fr; /* Force 2 columns on mobile */
+    gap: 0.75rem;
+  }
+  
+  .statCard {
+    padding: 0.75rem;
+    min-height: 90px;
+  }
+  
+  .statCard h4 {
+    font-size: 0.75rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .statValue {
+    font-size: 1rem;
+  }
+}
+
+/* For very long text, ensure it doesn't break the layout */
+.statValue {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* If you want to allow wrapping instead of ellipsis */
+.statValue.allowWrap {
+  white-space: normal;
+  word-break: break-word;
 }

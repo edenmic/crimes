@@ -1,45 +1,158 @@
 .filtersContainer {
   background-color: var(--bg-primary);
   border: 1px solid var(--border-color);
-  border-radius: 4px;
-  padding: 15px;
-  margin-bottom: 20px;
+  border-radius: 8px;
   box-shadow: var(--shadow);
+  padding: 1.5rem;
+  margin-bottom: 2rem;
 }
 
-.filterControls {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 15px;
+.filtersTitle {
+  color: var(--text-primary);
+  margin: 0 0 1.5rem 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+.filtersGrid {
+  display: flex; /* שינוי מ-grid ל-flex */
+  gap: 1rem;
+  align-items: flex-end;
+  flex-wrap: nowrap; /* מונע עטיפה - הכל בשורה אחת */
 }
 
 .filterGroup {
-  flex: 1;
-  min-width: 200px;
+  display: flex;
+  flex-direction: column;
+  flex: 1; /* כל פילטר תופס מקום שווה */
+  min-width: 0; /* מאפשר כיווץ */
 }
 
-.filterGroup label {
-  display: block;
-  margin-bottom: 5px;
+.dateRangeGroup {
+  flex: 2; /* התאריכים תופסים מקום כפול */
+}
+
+.filterLabel {
   color: var(--text-primary);
-  font-weight: bold;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  font-size: 0.9rem;
 }
 
-.filterGroup select,
-.filterGroup input {
-  width: 100%;
-  padding: 8px;
+.filterSelect,
+.filterInput {
+  padding: 0.75rem;
   border: 1px solid var(--border-color);
-  border-radius: 4px;
   background-color: var(--bg-secondary);
   color: var(--text-primary);
+  border-radius: 4px;
+  font-size: 0.9rem;
+  width: 100%;
+  box-sizing: border-box;
+  max-width: 100%;
 }
 
-.dateInputs {
+.filterSelect:focus,
+.filterInput:focus {
+  outline: none;
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 2px rgba(74, 128, 186, 0.2);
+}
+
+.dateRangeInputs {
   display: flex;
-  gap: 10px;
+  align-items: center;
+  gap: 0.5rem;
 }
 
-.dateInputs input {
+.dateInput {
+  padding: 0.75rem;
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+  border-radius: 4px;
+  font-size: 0.9rem;
   flex: 1;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+.dateInput:focus {
+  outline: none;
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 2px rgba(74, 128, 186, 0.2);
+}
+
+.dateSeparator {
+  color: var(--text-secondary);
+  font-weight: 500;
+  white-space: nowrap;
+  margin: 0 0.25rem;
+  flex-shrink: 0;
+}
+
+/* Responsive design - רק למסכים קטנים מ-768px */
+@media (max-width: 768px) {
+  .filtersGrid {
+    flex-direction: ro; /* רק במסכים קטנים עובר לעמודה */
+    gap: 1rem;
+  }
+  
+  .filterGroup,
+  .dateRangeGroup {
+    flex: 1; /* באותו גודל במסכים קטנים */
+  }
+  
+  .filtersContainer {
+    padding: 1rem;
+  }
+  
+  .dateRangeInputs {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.75rem;
+  }
+  
+  .dateSeparator {
+    text-align: center;
+    margin: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .filtersContainer {
+    padding: 0.75rem;
+  }
+  
+  .filtersTitle {
+    font-size: 1.25rem;
+  }
+  
+  .filterSelect,
+  .filterInput,
+  .dateInput {
+    padding: 0.6rem;
+    font-size: 0.85rem;
+  }
+}
+
+/* תיקון עבור דפדפנים שונים */
+input[type="date"] {
+  -webkit-appearance: none;
+  -moz-appearance: textfield;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  background-color: var(--accent-color);
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+input[type="date"]::-ms-clear {
+  display: none;
+}
+
+input[type="date"]::-ms-reveal {
+  display: none;
 }

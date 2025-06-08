@@ -1,5 +1,4 @@
-import { useMemo, useState } from 'react';
-import type { FC } from 'react';
+import React, { useState, useMemo } from 'react';
 import { useCrimeData } from '../../hooks/useCrimeData';
 import { Filters } from '../Filters/Filters';
 import { SummaryWindow } from '../SummaryWindow/SummaryWindow';
@@ -14,8 +13,9 @@ import { LineChartComponent } from '../LineChart/LineChart';
 import { Skeleton, ChartSkeleton } from '../Skeleton/Skeleton';
 import { exportToCsv } from '../../utils/exportData';
 import { DataTableComponent } from '../DataTable/DataTable';
-import { HeatMapComponent } from '../HeatMap/HeatMap';
 import type { Crime } from '../../types';
+import type { FC } from 'react';
+import { HeatMap } from '../HeatMap/HeatMap';
 
 export const Dashboard: FC = () => {
   const { crimes, loading: crimesLoading, error, refetch } = useCrimeData();
@@ -47,7 +47,7 @@ export const Dashboard: FC = () => {
         summary: true,
         pieCharts: true,
         barCharts: true,
-        map: mapVisible,
+        map: true,
         lineChart: true
       }
     };
@@ -139,13 +139,19 @@ export const Dashboard: FC = () => {
               Export Filtered Data
             </button>
           </div>
-          
+
           <Filters 
             filters={filters} 
             filterOptions={filterOptions} 
             updateFilter={updateFilter} 
           />
           
+          {/* Add HeatMap after filters */}
+          <HeatMap 
+            crimes={filteredCrimes} 
+            title="Crime Activity Heatmap - By Day and Hour"
+          />
+
           <SummaryWindow stats={stats} />
           
           <div className={styles.chartsContainer}>
@@ -198,15 +204,6 @@ export const Dashboard: FC = () => {
             />
           </div>
 
-          <div className={styles.fullWidthChart}>
-            <HeatMapComponent 
-              crimes={filteredCrimes} 
-              title="Crime Hotspots by Hour of Day" 
-              xAxis="hour"
-              yAxis="dayOfWeek"
-            />
-          </div>
-
           <div className={styles.insightsSection}>
             <h3>Key Insights</h3>
             <ul>
@@ -230,8 +227,8 @@ export const Dashboard: FC = () => {
                 <div className={styles.statValue}>2PM - 6PM</div>
               </div>
               <div className={styles.statCard}>
-                <h4>Safest District</h4>
-                <div className={styles.statValue}>{stats.leastCommonDistrict || 'N/A'}</div>
+                <h4>Most Active District</h4>
+                <div className={styles.statValue}>{stats.mostCommonDistrict || 'N/A'}</div>
               </div>
             </div>
           </div>

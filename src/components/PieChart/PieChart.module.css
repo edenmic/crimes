@@ -22,3 +22,98 @@
   color: #888;
   font-style: italic;
 }
+
+.chartContainer {
+  background-color: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  height: 400px; /* קביעת גובה קבוע */
+}
+
+.chartTitle {
+  color: var(--text-primary);
+  margin: 0 0 1rem 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+.chartWrapper {
+  height: calc(100% - 3rem); /* הפחתת גובה כדי להשאיר מקום לכותרת */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* עדכון גודל הגרף */
+.chartWrapper .recharts-wrapper {
+  max-width: 100% !important;
+  max-height: 100% !important;
+}
+
+/* שיפור עיצוב הלגנדה */
+.chartWrapper .recharts-legend-wrapper {
+  padding-left: 20px !important;
+  max-width: 200px !important;
+}
+
+.chartWrapper .recharts-default-legend {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-items: flex-start !important;
+  gap: 8px !important;
+}
+
+.chartWrapper .recharts-legend-item {
+  margin-bottom: 6px !important;
+  font-size: 0.875rem !important;
+  color: var(--text-primary) !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .chartContainer {
+    height: 350px;
+    padding: 1rem;
+  }
+  
+  .chartTitle {
+    font-size: 1.1rem;
+  }
+  
+  .chartWrapper .recharts-legend-wrapper {
+    max-width: 150px !important;
+    padding-left: 10px !important;
+  }
+  
+  .chartWrapper .recharts-legend-item {
+    font-size: 0.75rem !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .chartContainer {
+    height: 300px;
+    padding: 0.75rem;
+  }
+  
+  .chartWrapper {
+    flex-direction: column;
+  }
+  
+  .chartWrapper .recharts-legend-wrapper {
+    max-width: none !important;
+    padding-left: 0 !important;
+    margin-top: 10px;
+  }
+  
+  .chartWrapper .recharts-default-legend {
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+  }
+}

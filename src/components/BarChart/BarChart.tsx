@@ -33,6 +33,29 @@ export const BarChartComponent: FC<BarChartProps> = ({ crimes, title, dataKey, l
       .slice(0, limit); // Limit the number of bars
   }, [crimes, dataKey, limit]);
 
+  // Add custom tooltip component
+  const CustomTooltip = ({ active, payload, label }: any) => {
+    if (active && payload && payload.length) {
+      return (
+        <div style={{
+          backgroundColor: 'var(--bg-secondary)',
+          color: 'var(--text-primary)',
+          border: '1px solid var(--border-color)',
+          padding: '8px 12px',
+          borderRadius: '4px',
+          fontSize: '0.875rem',
+          boxShadow: 'var(--shadow)'
+        }}>
+          <p style={{ margin: 0, fontWeight: 'bold' }}>{label}</p>
+          <p style={{ margin: 0, color: 'var(--accent-color)' }}>
+            {payload[0].value} crimes
+          </p>
+        </div>
+      );
+    }
+    return null;
+  };
+
   if (!crimes.length) {
     return <div className={styles.noData}>No data to display</div>;
   }
@@ -52,11 +75,8 @@ export const BarChartComponent: FC<BarChartProps> = ({ crimes, title, dataKey, l
           />
           <YAxis tick={{ fill: darkMode ? '#e0e0e0' : '#333333' }} />
           <Tooltip 
-            contentStyle={{ 
-              backgroundColor: darkMode ? '#2d2d2d' : '#ffffff',
-              color: darkMode ? '#e0e0e0' : '#333333',
-              border: `1px solid ${darkMode ? '#444444' : '#e0e0e0'}`,
-            }} 
+            content={<CustomTooltip />}
+            wrapperStyle={{ color: darkMode ? '#e0e0e0' : '#333333' }}
           />
           <Legend wrapperStyle={{ color: darkMode ? '#e0e0e0' : '#333333' }} />
           <Bar dataKey="value" fill={darkMode ? '#6a9be6' : '#4a80ba'} />

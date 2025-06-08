@@ -1,24 +1,69 @@
 .barChartContainer {
-  background-color: white;
+  background-color: var(--bg-primary);
+  border: 1px solid var(--border-color);
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  padding: 1rem;
+  box-shadow: var(--shadow);
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  height: 400px;
 }
 
 .barChartContainer h3 {
+  color: var(--text-primary);
+  margin: 0 0 1rem 0;
+  font-size: 1.25rem;
+  font-weight: 600;
   text-align: center;
-  margin-bottom: 1rem;
-  color: #333;
 }
 
-.noData {
+.chartWrapper {
+  height: calc(100% - 3rem);
   display: flex;
-  justify-content: center;
   align-items: center;
-  height: 400px;
-  background-color: white;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  color: #888;
-  font-style: italic;
+  justify-content: center;
+}
+
+/* Override Recharts styles for dark mode */
+.chartWrapper .recharts-cartesian-grid-horizontal line,
+.chartWrapper .recharts-cartesian-grid-vertical line {
+  stroke: var(--border-color) !important;
+  opacity: 0.5;
+}
+
+.chartWrapper .recharts-text {
+  fill: var(--text-primary) !important;
+}
+
+.chartWrapper .recharts-label {
+  fill: var(--text-primary) !important;
+}
+
+.chartWrapper .recharts-cartesian-axis-tick-value {
+  fill: var(--text-secondary) !important;
+}
+
+.chartWrapper .recharts-tooltip-wrapper {
+  background-color: var(--bg-secondary) !important;
+  border: 1px solid var(--border-color) !important;
+  border-radius: 4px !important;
+  box-shadow: var(--shadow) !important;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .chartContainer {
+    height: 350px;
+    padding: 1rem;
+  }
+  
+  .chartTitle {
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .chartContainer {
+    height: 300px;
+    padding: 0.75rem;
+  }
 }

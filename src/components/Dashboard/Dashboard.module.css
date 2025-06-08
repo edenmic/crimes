@@ -8,11 +8,27 @@
 .header {
   margin-bottom: 2rem;
   text-align: center;
+  background-color: rgba(255, 255, 255, 0.1); /* לבן עם שקיפות 10% */
+  backdrop-filter: blur(10px); /* אפקט טשטוש */
+  -webkit-backdrop-filter: blur(10px); /* תמיכה בספארי */
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+/* עבור מצב כהה */
+[data-theme="dark"] .header {
+  background-color: rgba(255, 255, 255, 0.05); /* שקיפות נמוכה יותר במצב כהה */
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
 }
 
 .header h1 {
-  color: #333;
+  color: var(--text-primary);
   font-size: 2rem;
+  margin: 0;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* הוסף צל לטקסט */
 }
 
 .loading, .error {
@@ -21,13 +37,15 @@
   align-items: center;
   height: 300px;
   font-size: 1.2rem;
-  background-color: white;
+  background-color: var(--bg-secondary); /* Changed from white */
+  color: var(--text-primary); /* Add this */
+  border: 1px solid var(--border-color); /* Add this */
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow); /* Changed shadow */
 }
 
 .error {
-  color: #d9534f;
+  color: #e74c3c; /* Keep red for errors */
 }
 
 .chartsContainer {
@@ -43,17 +61,42 @@
   }
 }
 
+.chartsSection {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.chartsRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
 .fullWidthChart {
   margin-bottom: 1.5rem;
-  background-color: white;
+  background-color: var(--bg-primary);
+  border: 1px solid var(--border-color);
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow);
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.pieChartContainer {
+  height: 400px;
+  background-color: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  box-shadow: var(--shadow);
 }
 
 .footer {
   margin-top: 3rem;
   text-align: center;
-  color: #777;
+  color: var(--text-secondary); /* Changed from #777 */
   font-size: 0.9rem;
 }
 
@@ -79,12 +122,12 @@
 }
 
 .exportButton:disabled {
-  background-color: #95a5a6;
+  background-color: var(--text-secondary); /* Changed from #95a5a6 */
   cursor: not-allowed;
 }
 
 .retryButton {
-  background-color: #3498db;
+  background-color: var(--accent-color); /* Changed from #3498db */
   color: white;
   border: none;
   border-radius: 4px;
@@ -96,7 +139,7 @@
 }
 
 .retryButton:hover {
-  background-color: #2980b9;
+  background-color: #3a6ba5; /* Darker blue */
 }
 
 /* Add to your Dashboard.module.css */
@@ -135,9 +178,11 @@
 }
 
 .comparisonSelector {
-  background-color: white;
+  background-color: var(--bg-primary); /* Changed from white */
+  color: var(--text-primary); /* Add this */
+  border: 1px solid var(--border-color); /* Add this */
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow); /* Changed shadow */
   padding: 1.5rem;
   margin-bottom: 1.5rem;
 }
@@ -145,6 +190,7 @@
 .comparisonSelector h3 {
   text-align: center;
   margin-bottom: 1rem;
+  color: var(--text-primary); /* Add this */
 }
 
 .dateSelectors {
@@ -164,12 +210,20 @@
 .periodSelector label {
   margin-bottom: 0.3rem;
   font-weight: 500;
+  color: var(--text-primary); /* Add this */
 }
 
 .periodSelector input {
   padding: 0.5rem;
-  border: 1px solid #ccc;
+  border: 1px solid var(--border-color); /* Changed from #ccc */
+  background-color: var(--bg-secondary); /* Add this */
+  color: var(--text-primary); /* Add this */
   border-radius: 4px;
+}
+
+.periodSelector input:focus {
+  outline: none;
+  border-color: var(--accent-color); /* Add this */
 }
 
 .compareButton {
@@ -189,9 +243,11 @@
 }
 
 .comparisonResults {
-  background-color: white;
+  background-color: var(--bg-primary); /* Changed from white */
+  color: var(--text-primary); /* Add this */
+  border: 1px solid var(--border-color); /* Add this */
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow); /* Changed shadow */
   padding: 1.5rem;
   margin-bottom: 1.5rem;
 }
@@ -199,6 +255,7 @@
 .comparisonResults h3 {
   text-align: center;
   margin-bottom: 1rem;
+  color: var(--text-primary); /* Add this */
 }
 
 .comparisonStats {
@@ -210,7 +267,9 @@
 .periodStats {
   flex: 1;
   padding: 1rem;
-  background-color: #f8f9fa;
+  background-color: var(--bg-secondary); /* Changed from #f8f9fa */
+  border: 1px solid var(--border-color); /* Add this */
+  color: var(--text-primary); /* Add this */
   border-radius: 8px;
   text-align: center;
 }
@@ -238,5 +297,82 @@
   .changeIndicator {
     transform: rotate(90deg);
     margin: 1rem 0;
+  }
+}
+
+.statCards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.statCard {
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 1.5rem;
+  text-align: center;
+  transition: all 0.2s ease;
+  min-height: 120px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.statCard:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow);
+}
+
+.statCard h4 {
+  margin: 0 0 0.75rem 0;
+  color: var(--text-secondary);
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.statValue {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--accent-color);
+  margin: 0;
+}
+
+/* Add Analytics Panel styling */
+.analyticsPanel {
+  background-color: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.analyticsPanel h3 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: var(--text-primary);
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .statCards {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .chartsRow {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .fullWidthChart {
+    padding: 1rem;
+  }
+  
+  .dashboard {
+    padding: 1rem 0.5rem;
   }
 }

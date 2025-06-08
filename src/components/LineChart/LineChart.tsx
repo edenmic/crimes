@@ -85,6 +85,31 @@ export const LineChartComponent: FC<LineChartProps> = ({
     
   }, [crimes, timeGrouping]);
 
+  // Add similar custom tooltip
+  const CustomTooltip = ({ active, payload, label }: any) => {
+    if (active && payload && payload.length) {
+      return (
+        <div style={{
+          backgroundColor: 'var(--bg-secondary)',
+          color: 'var(--text-primary)',
+          border: '1px solid var(--border-color)',
+          padding: '8px 12px',
+          borderRadius: '4px',
+          fontSize: '0.875rem',
+          boxShadow: 'var(--shadow)'
+        }}>
+          <p style={{ margin: 0, fontWeight: 'bold' }}>{label}</p>
+          {payload.map((entry: any, index: number) => (
+            <p key={index} style={{ margin: 0, color: entry.color }}>
+              {entry.name}: {entry.value}
+            </p>
+          ))}
+        </div>
+      );
+    }
+    return null;
+  };
+
   if (!crimes.length) {
     return <div className={styles.noData}>No data to display</div>;
   }
@@ -111,7 +136,7 @@ export const LineChartComponent: FC<LineChartProps> = ({
           />
           <YAxis />
           <Tooltip 
-            formatter={(value: number) => [`${value} incidents`, 'Count']}
+            content={<CustomTooltip />}
             labelFormatter={(label) => `Period: ${label}`}
           />
           <Legend />
