@@ -1,0 +1,121 @@
+.tableContainer {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.tableContainer h3 {
+  text-align: center;
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+.tableWrapper {
+  overflow-x: auto;
+  margin-bottom: 1rem;
+}
+
+.dataTable {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 600px;
+}
+
+.dataTable th {
+  background-color: #f8f9fa;
+  padding: 0.8rem;
+  font-weight: 600;
+  text-align: left;
+  border-bottom: 2px solid #dee2e6;
+}
+
+.dataTable td {
+  padding: 0.8rem;
+  border-bottom: 1px solid #dee2e6;
+  vertical-align: top;
+}
+
+.dataTable tr:hover {
+  background-color: #f8f9fa;
+}
+
+.sortable {
+  cursor: pointer;
+  user-select: none;
+}
+
+.sortable:hover {
+  background-color: #e9ecef;
+}
+
+.sortIcon {
+  display: inline-block;
+  margin-left: 0.2rem;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 1.5rem 0 0.5rem;
+}
+
+.pagination button {
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  margin: 0 0.5rem;
+  transition: background-color 0.2s;
+}
+
+.pagination button:hover:not(:disabled) {
+  background-color: #2980b9;
+}
+
+.pagination button:disabled {
+  background-color: #95a5a6;
+  cursor: not-allowed;
+}
+
+.pageInfo {
+  margin: 0 1rem;
+}
+
+.tableFooter {
+  text-align: center;
+  font-size: 0.9rem;
+  color: #6c757d;
+  margin-top: 0.5rem;
+}
+
+.noData {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  color: #888;
+  font-style: italic;
+}
+
+.offenseCell {
+  display: flex;
+  flex-direction: column;
+}
+
+.offenseCell small {
+  color: #6c757d;
+  font-size: 0.8rem;
+  margin-top: 0.2rem;
+}
+
+@media (max-width: 768px) {
+  .pagination {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}

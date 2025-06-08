@@ -39,6 +39,19 @@ export const useFilters = (crimes: Crime[] = []) => {
     }
   }, [crimes]);
 
+  // Load saved filters on component mount
+  useEffect(() => {
+    const savedFilters = localStorage.getItem('crimeFilters');
+    if (savedFilters) {
+      setFilters(JSON.parse(savedFilters));
+    }
+  }, []);
+
+  // Save filters whenever they change
+  useEffect(() => {
+    localStorage.setItem('crimeFilters', JSON.stringify(filters));
+  }, [filters]);
+
   // Function to update a specific filter
   const updateFilter = (filterName: keyof Filters, value: string) => {
     setFilters(prev => ({

@@ -7,22 +7,28 @@ export const useCrimeData = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<Error | null>(null);
 
-    useEffect(() => {
-        const fetchCrimeData = async () => {
-            try {
-                setLoading(true);
-                const data = await parseCSVData('/src/data/boston_crime_2017.csv');
-                setCrimes(data);
-            } catch (err) {
-                console.error("Failed to fetch crime data:", err);
-                setError(err instanceof Error ? err : new Error('Unknown error occurred'));
-            } finally {
-                setLoading(false);
-            }
-        };
+    const fetchCrimeData = async () => {
+        try {
+            setLoading(true);
+            setError(null); // Reset error when retrying
+            const data = await parseCSVData('/src/data/boston_crime_2017.csv');
+            setCrimes(data);
+        } catch (err) {
+            console.error("Failed to fetch crime data:", err);
+            setError(err instanceof Error ? err : new Error('An unknown error occurred'));
+        } finally {
+            setLoading(false);
+        }
+    };
 
+    // Function to retry fetching data
+    const refetch = () => {
+        fetchCrimeData();
+    };
+
+    useEffect(() => {
         fetchCrimeData();
     }, []);
 
-    return { crimes, loading, error };
+    return { crimes, loading, error, refetch };
 };

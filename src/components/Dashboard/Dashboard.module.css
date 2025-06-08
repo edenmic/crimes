@@ -82,3 +82,161 @@
   background-color: #95a5a6;
   cursor: not-allowed;
 }
+
+.retryButton {
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 0.6rem 1.2rem;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  margin-top: 1rem;
+}
+
+.retryButton:hover {
+  background-color: #2980b9;
+}
+
+/* Add to your Dashboard.module.css */
+@media print {
+  .dashboard {
+    background-color: white;
+  }
+  
+  .actions, .header button {
+    display: none;
+  }
+  
+  .fullWidthChart {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+}
+
+@media (max-width: 600px) {
+  .actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .exportButton {
+    margin-bottom: 0.5rem;
+  }
+  
+  .header h1 {
+    font-size: 1.5rem;
+  }
+  
+  .insightsSection {
+    font-size: 0.9rem;
+  }
+}
+
+.comparisonSelector {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.comparisonSelector h3 {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.dateSelectors {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.periodSelector {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 0.5rem;
+}
+
+.periodSelector label {
+  margin-bottom: 0.3rem;
+  font-weight: 500;
+}
+
+.periodSelector input {
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.compareButton {
+  background-color: #9b59b6;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 0.6rem 1.2rem;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  margin-top: 1.5rem;
+}
+
+.compareButton:hover {
+  background-color: #8e44ad;
+}
+
+.comparisonResults {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.comparisonResults h3 {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.comparisonStats {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.periodStats {
+  flex: 1;
+  padding: 1rem;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.changeIndicator {
+  padding: 0 1rem;
+  text-align: center;
+}
+
+.changeArrow {
+  font-size: 2rem;
+  color: #e74c3c;
+}
+
+.changeArrow.positive {
+  color: #2ecc71;
+}
+
+@media (max-width: 768px) {
+  .comparisonStats {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .changeIndicator {
+    transform: rotate(90deg);
+    margin: 1rem 0;
+  }
+}

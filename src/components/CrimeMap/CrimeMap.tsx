@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import type { FC } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, CircleMarker } from 'react-leaflet';
 import type { Crime } from '../../types';
@@ -37,6 +37,12 @@ export const CrimeMap: FC<CrimeMapProps> = ({ crimes, title }) => {
       !isNaN(crime.longitude)
   );
 
+  // Implement pagination or virtualization for map points
+  const MAX_MAP_POINTS = 1000;
+  const displayCrimes = useMemo(() => {
+    return validCrimes.slice(0, MAX_MAP_POINTS);
+  }, [validCrimes]);
+
   return (
     <div className={styles.mapContainer}>
       <h3>{title}</h3>
@@ -51,9 +57,9 @@ export const CrimeMap: FC<CrimeMapProps> = ({ crimes, title }) => {
         />
         
         {/* Use circle markers for better performance with large datasets */}
-        {validCrimes.slice(0, 1000).map((crime) => (
+        {displayCrimes.map((crime, index) => (
           <CircleMarker
-            key={crime.incidentNumber}
+            key={`${crime.incidentNumber}-${index}`}
             center={[crime.latitude, crime.longitude]}
             radius={5}
             pathOptions={{ color: getColorByOffense(crime.offenseCode) }}
