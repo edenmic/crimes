@@ -1,20 +1,30 @@
 .mapContainer {
-  background-color: white;
+  background-color: var(--bg-primary);
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  padding: 1rem;
-  margin-bottom: 1.5rem;
+  box-shadow: var(--shadow);
+  margin-bottom: 20px;
+  overflow: hidden;
 }
 
-.mapContainer h3 {
-  text-align: center;
-  margin-bottom: 1rem;
-  color: #333;
+.mapTitle {
+  color: var(--text-primary);
+  padding: 15px;
+  margin: 0;
+  border-bottom: 1px solid var(--border-color);
+  font-size: 1.2rem;
 }
 
 .map {
   height: 500px;
   width: 100%;
-  border-radius: 4px;
-  z-index: 0;
+}
+
+/* If you need specific popup styling */
+:global(.leaflet-popup-content-wrapper) {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+:global(.leaflet-popup-tip) {
+  background-color: var(--bg-primary);
 }

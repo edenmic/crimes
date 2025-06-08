@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react';
 import type { FC } from 'react';
-import { MapContainer, TileLayer, Marker, Popup, CircleMarker } from 'react-leaflet';
+import { MapContainer, TileLayer, CircleMarker, Popup } from 'react-leaflet';
+import { useTheme } from '../../contexts/ThemeContext';
 import type { Crime } from '../../types';
 import styles from './CrimeMap.module.css';
 import 'leaflet/dist/leaflet.css';
@@ -25,6 +26,8 @@ interface CrimeMapProps {
 }
 
 export const CrimeMap: FC<CrimeMapProps> = ({ crimes, title }) => {
+  const { darkMode } = useTheme();
+  
   // Center on Boston
   const bostonPosition: [number, number] = [42.3601, -71.0589];
 
@@ -43,18 +46,24 @@ export const CrimeMap: FC<CrimeMapProps> = ({ crimes, title }) => {
     return validCrimes.slice(0, MAX_MAP_POINTS);
   }, [validCrimes]);
 
+  // Use a dark or light map tile based on theme
+  const tileUrl = darkMode 
+    ? 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png'
+    : 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+  
+  const attribution = darkMode
+    ? '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>, &copy; <a href="https://carto.com/attributions">CARTO</a>'
+    : '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
+
   return (
     <div className={styles.mapContainer}>
-      <h3>{title}</h3>
+      <h3 className={styles.mapTitle}>{title}</h3>
       <MapContainer 
         center={bostonPosition} 
         zoom={12} 
         className={styles.map}
       >
-        <TileLayer
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        />
+        <TileLayer url={tileUrl} attribution={attribution} />
         
         {/* Use circle markers for better performance with large datasets */}
         {displayCrimes.map((crime, index) => (
@@ -62,7 +71,7 @@ export const CrimeMap: FC<CrimeMapProps> = ({ crimes, title }) => {
             key={`${crime.incidentNumber}-${index}`}
             center={[crime.latitude, crime.longitude]}
             radius={5}
-            pathOptions={{ color: getColorByOffense(crime.offenseCode) }}
+            pathOptions={{ color: getColorByOffense(crime.offenseCode, darkMode) }}
           >
             <Popup>
               <div>
@@ -80,19 +89,19 @@ export const CrimeMap: FC<CrimeMapProps> = ({ crimes, title }) => {
   );
 };
 
-// Helper function to get color based on offense type
-function getColorByOffense(offense: string): string {
+// Update color function to support dark mode
+const getColorByOffense = (offenseCode: string, isDarkMode: boolean) => {
   const colorMap: Record<string, string> = {
-    'Auto Theft': '#ff4d4d',
-    'Vandalism': '#ff944d',
-    'Simple Assault': '#ffdb4d',
-    'Residential Burglary': '#79ff4d',
-    'Harassment': '#4dffdb',
-    'Investigate Property': '#4d94ff',
-    'Investigate Person': '#8c4dff',
-    'Motor Vehicle Accident Response': '#db4dff',
-    'Violations': '#ff4d94',
+    'Auto Theft': isDarkMode ? '#ff4d4d' : '#ffcccc',
+    'Vandalism': isDarkMode ? '#ff944d' : '#ffe6cc',
+    'Simple Assault': isDarkMode ? '#ffdb4d' : '#ffffcc',
+    'Residential Burglary': isDarkMode ? '#79ff4d' : '#e6ffe6',
+    'Harassment': isDarkMode ? '#4dffdb' : '#ccffff',
+    'Investigate Property': isDarkMode ? '#4d94ff' : '#cce0ff',
+    'Investigate Person': isDarkMode ? '#8c4dff' : '#e0ccff',
+    'Motor Vehicle Accident Response': isDarkMode ? '#db4dff' : '#f2ccff',
+    'Violations': isDarkMode ? '#ff4d94' : '#ffccf2',
   };
   
-  return colorMap[offense] || '#808080';
-}
+  return colorMap[offenseCode] || (isDarkMode ? '#808080' : '#f2f2f2');
+};

@@ -1,28 +1,35 @@
+import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { Dashboard } from './components/Dashboard/Dashboard';
-import { NavBar } from './components/NavBar/NavBar';
+import { ThemeProvider } from './contexts/ThemeContext';
+import { Header } from './components/Header/Header';
 import { Footer } from './components/Footer/Footer';
-import { About } from './pages/About';
-import { Help } from './pages/Help';
+import { DashboardPage } from './pages/DashboardPage';
+import { AboutPage } from './pages/AboutPage';
+import { HelpPage } from './pages/HelpPage';
 import { NotFound } from './pages/NotFound';
 import './App.css';
 
 function App() {
   return (
-    <Router>
-      <div className="app">
-        <NavBar />
-        <main className="main-content">
-          <Routes>
-            <Route path="/" element={<Dashboard />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/help" element={<Help />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </main>
-        <Footer />
-      </div>
-    </Router>
+    <ThemeProvider>
+      <Router>
+        <div className="app">
+          <Header />
+          
+          <main className="main-content">
+            <Routes>
+              <Route path="/" element={<DashboardPage />} />
+              <Route path="/about" element={<AboutPage />} />
+              <Route path="/help" element={<HelpPage />} />
+              {/* Catch-all route for 404 - must be last */}
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </main>
+          
+          <Footer />
+        </div>
+      </Router>
+    </ThemeProvider>
   );
 }
 

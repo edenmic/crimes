@@ -1,17 +1,20 @@
-import { useMemo } from 'react';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-import type { Crime } from '../../types';
+import React, { useMemo } from 'react';
 import type { FC } from 'react';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { useTheme } from '../../contexts/ThemeContext';
 import styles from './BarChart.module.css';
+import type { Crime } from '../../types';
 
 interface BarChartProps {
   crimes: Crime[];
   title: string;
-  dataKey: 'offenseCode' | 'district' | 'dayOfWeek';
+  dataKey: keyof Crime;
   limit?: number;
 }
 
 export const BarChartComponent: FC<BarChartProps> = ({ crimes, title, dataKey, limit = 10 }) => {
+  const { darkMode } = useTheme();
+  
   const data = useMemo(() => {
     if (!crimes.length) return [];
     
@@ -35,29 +38,28 @@ export const BarChartComponent: FC<BarChartProps> = ({ crimes, title, dataKey, l
   }
 
   return (
-    <div className={styles.barChartContainer}>
-      <h3>{title}</h3>
+    <div className={styles.chartContainer}>
+      <h3 className={styles.chartTitle}>{title}</h3>
       <ResponsiveContainer width="100%" height={400}>
-        <BarChart
-          data={data}
-          margin={{
-            top: 20,
-            right: 30,
-            left: 20,
-            bottom: 100
-          }}
-        >
-          <CartesianGrid strokeDasharray="3 3" />
+        <BarChart data={data} margin={{ top: 20, right: 30, left: 20, bottom: 60 }}>
+          <CartesianGrid strokeDasharray="3 3" stroke={darkMode ? '#444444' : '#e0e0e0'} />
           <XAxis 
-            dataKey="name"
+            dataKey="name" 
+            tick={{ fill: darkMode ? '#e0e0e0' : '#333333' }}
             angle={-45}
             textAnchor="end"
-            height={80}
+            height={70}
           />
-          <YAxis />
-          <Tooltip formatter={(value: number) => [`${value} incidents`, 'Count']} />
-          <Legend />
-          <Bar dataKey="value" name="Number of Incidents" fill="#8884d8" />
+          <YAxis tick={{ fill: darkMode ? '#e0e0e0' : '#333333' }} />
+          <Tooltip 
+            contentStyle={{ 
+              backgroundColor: darkMode ? '#2d2d2d' : '#ffffff',
+              color: darkMode ? '#e0e0e0' : '#333333',
+              border: `1px solid ${darkMode ? '#444444' : '#e0e0e0'}`,
+            }} 
+          />
+          <Legend wrapperStyle={{ color: darkMode ? '#e0e0e0' : '#333333' }} />
+          <Bar dataKey="value" fill={darkMode ? '#6a9be6' : '#4a80ba'} />
         </BarChart>
       </ResponsiveContainer>
     </div>

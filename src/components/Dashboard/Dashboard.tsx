@@ -11,11 +11,11 @@ import styles from './Dashboard.module.css';
 import { useFilters } from '../../hooks/useFilters';
 import { CrimeMap } from '../CrimeMap/CrimeMap';
 import { LineChartComponent } from '../LineChart/LineChart';
-// Import the skeleton components
 import { Skeleton, ChartSkeleton } from '../Skeleton/Skeleton';
 import { exportToCsv } from '../../utils/exportData';
 import { DataTableComponent } from '../DataTable/DataTable';
 import { HeatMapComponent } from '../HeatMap/HeatMap';
+import type { Crime } from '../../types';
 
 export const Dashboard: FC = () => {
   const { crimes, loading: crimesLoading, error, refetch } = useCrimeData();
@@ -104,17 +104,6 @@ export const Dashboard: FC = () => {
 
   return (
     <div className={styles.dashboard}>
-      <header className={styles.header}>
-        <h1>Boston Crime Dashboard (2017)</h1>
-        <button 
-          className={styles.themeToggle}
-          // onClick={toggleTheme}
-          aria-label={'Switch to dark mode'}
-        >
-          🌙
-        </button>
-      </header>
-
       {loading ? (
         <div className={styles.loadingContainer}>
           <h2 className={styles.loadingHeader}>Loading Crime Data...</h2>
@@ -147,7 +136,7 @@ export const Dashboard: FC = () => {
               className={styles.exportButton}
               onClick={() => exportToCsv(filteredCrimes, 'boston-crimes-filtered')}
             >
-              Export Data
+              Export Filtered Data
             </button>
           </div>
           
