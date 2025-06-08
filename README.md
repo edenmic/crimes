@@ -1,38 +1,92 @@
-the assignment is to display a dashbpard with information about crimes that were taken during 2017 in Boston.
 
-files:
+# Boston Crime Dashboard – 2017
 
--public
--src/
-  -components/
-    -PieChart/
-        PieChart.tsx
-        PieChart.module.css
-    -BarChart/
+This React-based dashboard visualizes crime data that occurred in Boston during 2017. The project presents interactive insights using charts and summaries to help users understand trends and patterns in the city's crime statistics.
+
+## 🚀 Features
+
+- 📊 **Pie Chart**: Displays proportional breakdowns of crime types.
+- 📈 **Bar Chart**: Shows occurrences over time or categories.
+- 🧾 **Summary Window**: Highlights key statistics for quick insights.
+- 📂 **CSV Parsing**: Reads and processes raw data from `boston_crime_2017.csv`.
+- 🧠 **Custom Hooks**: Simplifies logic with `useCrimeData` and `useFilters`.
+
+### ✅ Bonus Ideas (if time allows)
+- 🗺️ Map integration to pin crime locations by coordinates.
+- 🧭 Navigation bar with routing (Home, About, Help).
+- ❓ Cute and styled 404 error page.
+- 👣 Footer with additional project information and legal text.
+
+## 📁 Folder Structure
+
+```
+/public
+/src
+  /components
+    /PieChart
+      PieChart.tsx
+      PieChart.module.css
+    /BarChart
       BarChart.tsx
       BarChart.module.css
-    -SummaryWindow/
+    /SummaryWindow
       SummaryWindow.tsx
       SummaryWindow.module.css
-    -Features (if time left)
-      ## It will be awesome if Ill find a map and pin all the coordinates according to filter, will need to use async/await and handle loading, maybe lazy loading
-      ##error 404 cute page
-      ##navbar? will import Route and create home (main dashboard), about, help
-      ##footer (information about the web, all rights reserved etc..)
-  -assets
-  -utils/
+  /assets
+  /utils
     csvParse.ts
     calculateStats.ts
-  -data/
+  /data
     boston_crime_2017.csv
-  -types/
+  /types
     index.ts
-  -styles/
+  /styles
     index.css
-  -hooks/
-    useCrimeDate.ts
+  /hooks
+    useCrimeData.ts
     useFilters.ts
-
 App.tsx
 main.tsx
+```
 
+## 🛠️ Getting Started
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/your-username/boston-crime-dashboard.git
+   ```
+
+2. Install dependencies:
+
+   ```bash
+   npm install
+   ```
+
+3. Run the development server:
+
+   ```bash
+   npm run dev
+   ```
+
+4. Open in browser:
+
+   ```
+   http://localhost:5173
+   ```
+
+## 📦 Built With
+
+- React + TypeScript
+- Vite
+- CSS Modules
+- Recharts (depending on chart implementation)
+- Custom hooks and utility functions
+
+## 📊 Data Source
+
+The dataset `boston_crime_2017.csv` includes anonymized records of crime reports filed in Boston throughout 2017.
+
+## 📄 License
+
+This project is for educational/demo purposes only. All rights reserved.
