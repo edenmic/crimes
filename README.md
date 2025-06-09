@@ -54,7 +54,7 @@ main.tsx
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/your-username/boston-crime-dashboard.git
+   git clone https://github.com/edenmic/crimes.git
    ```
 
 2. Install dependencies:
